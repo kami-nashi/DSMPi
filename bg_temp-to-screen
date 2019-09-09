@@ -86,14 +86,12 @@ def get_args():
 
 class MyProc(Daemon):
     def run(self):
-################################################################################
         while True:
             draw.rectangle((0,0,width,height), outline=0, fill=0)
             kickit()
             disp.image(image)
             disp.display()
             time.sleep(3)
-################################################################################
 
         atexit.register(self.delrun)
 
