@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+import os
+import sys
+import time
+import psutil
+import atexit
+import argparse
+import subprocess
+from  mydaemon import Daemon
+
+import board
+import busio
+import time
+import adafruit_tlc59711
+
+spi = busio.SPI(board.SCK, MOSI=board.MOSI)
+leds = adafruit_tlc59711.TLC59711(spi)
+
+
+DAEMON_NAME = 'DMSPi ECMLink Notifier Process (id: #ID#)'
+DAEMON_STOP_TIMEOUT = 10
+PIDFILE = '/run/DSMPi_ENP_#ID#.pid'
+RUNFILE = '/run/DSMPi_ENP_#ID#.run'
+# Debug mode.
+DEBUG = 0
+
+def link_absent():
+    b_full = 65535
+    b_none = 0
+    leds[0] = (b_full, b_none, b_none)
+    time.sleep(.25)
+    leds[0] = (b_none, b_none, b_none)
+    time.sleep(.25)
+
+def link_present():
+    b_full = 65535
+    b_none = 0
+    leds[0] = (b_full, b_none, b_none)
+
+def find_procs_by_name(name):
+    "Return a list of processes matching 'name'."
+    ls = []
+    for p in psutil.process_iter(attrs=["name", "exe", "cmdline"]):
+        if name == p.info['name'] or \
+                p.info['exe'] and os.path.basename(p.info['exe']) == name or \
+                p.info['cmdline'] and p.info['cmdline'][0] == name:
+            ls.append(' '.join(p.info['cmdline']))
+    return ls
+
+def matchit():
+    name = "java"
+    fprocs = find_procs_by_name(name)
+    cmd1 = str(fprocs).replace("['","").replace("']","")
+    cmd2 = "/opt/jdk1.8.0_221/bin/java -splash:/opt/ECMLink/.install4j/s_bd23kg.png -Dinstall4j.jvmDir=/opt/jdk1.8.0_221 -Dexe4j.moduleName=/opt/ECMLink/ecmlink -Xms32m -Xmx256m -Djava.util.logging.config.file=logging.properties -Decmlink.version=3.36.73 -Decmlink.builddate=20180209 -Dinstall4j.launcherId=20 -Dinstall4j.swt=false -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4j.vpt=true -classpath /opt/ECMLink/.install4j/i4jruntime.jar:/opt/ECMLink/resources:/opt/ECMLink/ecmlink.jar:/opt/ECMLink/ecmlinkhelp.jar:/opt/ECMLink/libs/animation.jar:/opt/ECMLink/libs/apple-extensions.jar:/opt/ECMLink/libs/binding.jar:/opt/ECMLink/libs/forms.jar:/opt/ECMLink/libs/foxtrot.jar:/opt/ECMLink/libs/jhall.jar:/opt/ECMLink/libs/l2fprod-common-fontchooser.jar:/opt/ECMLink/libs/looks.jar:/opt/ECMLink/libs/RXTXcomm.jar:/opt/ECMLink/libs/serialio.jar:/opt/ECMLink/libs/uif-extras.jar:/opt/ECMLink/libs/uif.jar:/opt/ECMLink/libs/validation.jar com.install4j.runtime.launcher.UnixLauncher launch bcc834d9   com.ecmtuning.ecmlink.ECMLink"
+
+    if cmd2 in cmd1:
+        #print("Matched!")
+        while True:
+            link_present()
+    else:
+        #print("No Match")
+        while True:
+            link_absent()
+
+def get_args():
+    '''
+    >>> get_args()
+    ('start', 5)
+    >>> get_args()
+    ('stop', 4)
+    '''
+
+    try:
+        parser =  argparse.ArgumentParser()
+        parser.add_argument('action', help='action',
+                            choices=['start', 'stop', 'restart'])
+        parser.add_argument('uniqid', help='Unique ID')
+        args = parser.parse_args()
+
+        result = (args.action, args.uniqid)
+    except Exception as err:
+        if DEBUG:
+            raise
+        else:
+            sys.stderr.write('%s\n' % (err))
+
+        result = (None, None)
+
+    return result
+
+class MyProc(Daemon):
+    def run(self):
+        while True:
+            matchit()
+
+        atexit.register(self.delrun)
+
+        # Run while there is no stop request.
+        n = 0
+        while os.path.exists(RUNFILE):
+            print('.')
+            n += 1
+
+            if (n > 60):
+                break
+
+            time.sleep(1)
+
+
+if __name__ == '__main__':
+    try:
+        # Get arguments.
+        (action, uniqid) = get_args()
+
+        # Create daemon object.
+        DAEMON_NAME = DAEMON_NAME.replace('#ID#', uniqid)
+        PIDFILE = PIDFILE.replace('#ID#', uniqid)
+        RUNFILE = RUNFILE.replace('#ID#', uniqid)
+        d = MyProc(name=DAEMON_NAME, pidfile=PIDFILE, runfile=RUNFILE,
+                     stoptimeout=DAEMON_STOP_TIMEOUT, debug=DEBUG)
+
+        # Action requested.
+        if action == 'start':
+            d.start()
+        elif action == 'stop':
+            d.stop()
+        elif action == 'restart':
+            d.restart()
+        else:
+            raise NameError('Unknown action')
+
+        sys.exit(0)
+    except Exception as err:
+        if DEBUG:
+            raise
+        else:
+            sys.stderr.write('%s\n' % err)
+
+        sys.exit(1)
+

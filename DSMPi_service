@@ -67,7 +67,7 @@ def wait(timeout=60):
     return result
 
 def kickit():
-    subprocess.call(["bash", "/opt/github/DSMPi/bg_temp-to-screen", "start", "5455"])
+    subprocess.run(["/opt/github/DSMPi/bg_temp-to-screen start 5455"], shell = True)
 
 class MyDaemon(Daemon):
     def run(self):
