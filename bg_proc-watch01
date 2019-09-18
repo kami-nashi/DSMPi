@@ -55,14 +55,19 @@ def matchit():
     cmd1 = str(fprocs).replace("['","").replace("']","")
     cmd2 = "/opt/jdk1.8.0_221/bin/java -splash:/opt/ECMLink/.install4j/s_bd23kg.png -Dinstall4j.jvmDir=/opt/jdk1.8.0_221 -Dexe4j.moduleName=/opt/ECMLink/ecmlink -Xms32m -Xmx256m -Djava.util.logging.config.file=logging.properties -Decmlink.version=3.36.73 -Decmlink.builddate=20180209 -Dinstall4j.launcherId=20 -Dinstall4j.swt=false -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4jv=0 -Di4j.vpt=true -classpath /opt/ECMLink/.install4j/i4jruntime.jar:/opt/ECMLink/resources:/opt/ECMLink/ecmlink.jar:/opt/ECMLink/ecmlinkhelp.jar:/opt/ECMLink/libs/animation.jar:/opt/ECMLink/libs/apple-extensions.jar:/opt/ECMLink/libs/binding.jar:/opt/ECMLink/libs/forms.jar:/opt/ECMLink/libs/foxtrot.jar:/opt/ECMLink/libs/jhall.jar:/opt/ECMLink/libs/l2fprod-common-fontchooser.jar:/opt/ECMLink/libs/looks.jar:/opt/ECMLink/libs/RXTXcomm.jar:/opt/ECMLink/libs/serialio.jar:/opt/ECMLink/libs/uif-extras.jar:/opt/ECMLink/libs/uif.jar:/opt/ECMLink/libs/validation.jar com.install4j.runtime.launcher.UnixLauncher launch bcc834d9   com.ecmtuning.ecmlink.ECMLink"
 
+#    if cmd2 in cmd1:
+#        #print("Matched!")
+#        while True:
+#            link_present()
+#    else:
+#        #print("No Match")
+#        while True:
+#            link_absent()
     if cmd2 in cmd1:
-        #print("Matched!")
-        while True:
-            link_present()
+        link_present()
     else:
-        #print("No Match")
-        while True:
-            link_absent()
+        link_absent()
+
 
 def get_args():
     '''
