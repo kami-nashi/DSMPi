@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+import os
+import sys
+import time
+import glob
+import psutil
+import atexit
+import argparse
+import subprocess
+from  mydaemon import Daemon
+
+import board
+import busio
+import time
+import adafruit_tlc59711
+
+spi = busio.SPI(board.SCK, MOSI=board.MOSI)
+leds = adafruit_tlc59711.TLC59711(spi)
+
+def link_nlog():
+    b_full = 65535
+    b_none = 0
+    leds[1] = (b_full, b_none, b_none)
+    time.sleep(.05)
+    leds[1] = (b_none, b_none, b_none)
+    time.sleep(.05)
+
+def link_ylog():
+    b_full = 65535
+    b_none = 0
+    leds[1] = (b_full, b_none, b_none)
+
+def checker():
+   files = glob.glob("/opt/ECMLink/datalogs/*.elg")
+   newest = os.stat(max(files , key = os.path.getctime))
+   size = newest.st_size
+   print(size)
+   return size
+
+def matcher():
+   past = checker()
+   time.sleep(1)
+   present = checker()
+
+   if ( present <= past ):
+       print("Present is less than or equal")
+       link_nlog()
+   else:
+       print("Present is NOT less than or equal")
+       link_ylog()
+
+while True:
+   matcher()
