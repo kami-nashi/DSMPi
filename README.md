@@ -6,11 +6,13 @@ Sparklerific set of scripts and such to run ECMLink on a Raspberry Pi, complete 
 For best results, drop to root.  Sudo should also be just dandy.
 
 In Linux, run the following commands:
-  cd /opt
-  git clone https://github.com/kami-nashi/DSMPi.git
-  cd DSMPi
-  sh setup.sh
-  
+```bash
+
+    cd /opt
+    git clone https://github.com/kami-nashi/DSMPi.git
+    cd DSMPi
+    sh setup.sh
+```  
   
  ## Notes
    Set up sript will attempt to launch the link installer.  When it asks you what path ECMLink should go to, tell it /opt/ecmlink
