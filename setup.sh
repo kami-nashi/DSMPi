@@ -15,6 +15,9 @@ wget moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
 wget moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so 
 wget moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar 
 
+# get rid of openjdk because of reasons (ecmlink compatiblity issues)
+apt-get purge openjdk*
+
 # unzip java, install that crap
 tar xvzf /tmp/dsm_rpi/jdk-8u221-linux-arm32-vfp-hflt.tar.gz -C /opt/
 update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_221/bin/javac 1
