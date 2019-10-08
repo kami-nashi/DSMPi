@@ -1,0 +1,13 @@
+#/lib/systemd/system/bg_proc_watch02.service
+[Unit]
+Description=DSMPi Watch for Datalog Growth
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/github/DSMPi/bg_proc-watch02
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target

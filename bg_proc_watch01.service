@@ -1,0 +1,13 @@
+#/lib/systemd/system/bg_proc_watch01.service
+[Unit]
+Description=DSMPi Watch for Link
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/github/DSMPi/bg_proc-watch01
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target

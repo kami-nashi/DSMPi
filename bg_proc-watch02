@@ -33,10 +33,11 @@ def link_ylog():
     leds[1] = (b_full, b_none, b_none)
 
 def checker():
-   files = glob.glob("/opt/ECMLink/datalogs/*.elg")
+   #files = glob.glob("/opt/ECMLink/datalogs/*.elg")
+   files = glob.glob("/media/pi/test/*.elg")
    newest = os.stat(max(files , key = os.path.getctime))
    size = newest.st_size
-   print(size)
+   #print(size)
    return size
 
 def matcher():
@@ -45,10 +46,10 @@ def matcher():
    present = checker()
 
    if ( present <= past ):
-       print("Present is less than or equal")
+       #print("Present is less than or equal")
        link_nlog()
    else:
-       print("Present is NOT less than or equal")
+       #print("Present is NOT less than or equal")
        link_ylog()
 
 while True:

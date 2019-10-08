@@ -60,3 +60,6 @@ git clone https://github.com/emrahcom/MyDaemon.git
 git clone https://github.com/kami-nashi/DSMPi.git
 git clone https://github.com/adafruit/Adafruit_SSD1306.git
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+
+cp bg_proc_watch01.service /lib/systemd/system/bg_proc_watch01.service
+cp bg_proc_watch02.service /lib/systemd/system/bg_proc_watch02.service
