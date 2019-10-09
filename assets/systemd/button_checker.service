@@ -1,0 +1,13 @@
+#/lib/systemd/system/button_checker.service
+[Unit]
+Description=DSMPi Watch for Buttons
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/github/DSMPi/modules/button_checker
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
