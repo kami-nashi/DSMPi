@@ -1,0 +1,13 @@
+#/lib/systemd/system/status_checker.service
+[Unit]
+Description=DSMPi Watch for Link & Capture
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/github/DSMPi/modules/status_checker
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
