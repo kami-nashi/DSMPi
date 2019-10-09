@@ -8,6 +8,16 @@ import subprocess
 
 import lib.status_lights
 
+def find_procs_by_name(name):
+    "Return a list of processes matching 'name'."
+    ls = []
+    for p in psutil.process_iter(attrs=["name", "exe", "cmdline"]):
+        if name == p.info['name'] or \
+                p.info['exe'] and os.path.basename(p.info['exe']) == name or \
+                p.info['cmdline'] and p.info['cmdline'][0] == name:
+            ls.append(' '.join(p.info['cmdline']))
+    return ls
+
 def checker():
     #files = glob.glob("/opt/ECMLink/datalogs/*.elg")
     files = glob.glob("/media/pi/test/*.elg")
