@@ -19,8 +19,7 @@ def find_procs_by_name(name):
     return ls
 
 def checker():
-    #files = glob.glob("/opt/ECMLink/datalogs/*.elg")
-    files = glob.glob("/media/pi/test/*.elg")
+    files = glob.glob("/opt/ECMLink/datalogs/*.elg")
     newest = os.stat(max(files , key = os.path.getctime))
     size = newest.st_size
     #print(size)

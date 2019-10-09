@@ -12,8 +12,8 @@ chmod +x ecmlink_3_36_73.sh
 # get the packages we need
 wget moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
 wget moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
-wget moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so 
-wget moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar 
+wget moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so
+wget moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar
 
 # get rid of openjdk because of reasons (ecmlink compatiblity issues)
 apt-get purge openjdk*
@@ -61,5 +61,4 @@ git clone https://github.com/kami-nashi/DSMPi.git
 git clone https://github.com/adafruit/Adafruit_SSD1306.git
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
 
-cp bg_proc_watch01.service /lib/systemd/system/bg_proc_watch01.service
-cp bg_proc_watch02.service /lib/systemd/system/bg_proc_watch02.service
+cp assets/systemd/status_checker.service /lib/systemd/system/status_checker.service
