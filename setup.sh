@@ -7,7 +7,6 @@ apt-get install wget screen rsync terminator vim librxtx-java setserial xautomat
 # create work dirs
 mkdir /tmp/dsm_rpi
 cd /tmp/dsm_rpi
-chmod +x ecmlink_3_36_73.sh
 
 # get the packages we need
 wget moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
@@ -26,17 +25,16 @@ update-alternatives --config javac
 update-alternatives --config java
 
 # install ECMLink
+chmod +x ecmlink_3_36_73.sh
 sh /tmp/dsm_rpi/ecmlink_3_36_73.sh
 
-cd /opt/ECMLink/libs/
-ln –sf /usr/lib/jni/librxtxSerial.so
-chmod +x ecmlink
-
+# Setup ECMLink/Java to use the ARM version of RXTX
 # borrowed from http://www.ecmtuning.com/forums/showthread.php?t=78448&highlight=raspberry&page=4
-cd /opt/ECMLink/
-cp /tmp/dsm_rpi/sources/librxtxserial_2_1_7.so .
-cp /tmp/dsm_rpi/sources/RXTXcomm.jar .
+cd /opt/ECMLink/libs/
+cp /tmp/dsm_rpi/librxtxserial_2_1_7.so .
+cp /tmp/dsm_rpi/RXTXcomm.jar .
 ln -sf /usr/lib/jni/librxtxSerial.so
+chmod +x ../ecmlink
 
 # get powerline fonts
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
@@ -56,9 +54,8 @@ pip3 install mydaemon
 mkdir /opt/github
 cd /opt/github
 
-git clone https://github.com/emrahcom/MyDaemon.git
 git clone https://github.com/kami-nashi/DSMPi.git
 git clone https://github.com/adafruit/Adafruit_SSD1306.git
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
 
-cp assets/systemd/status_checker.service /lib/systemd/system/status_checker.service
+#cp assets/systemd/status_checker.service /lib/systemd/system/status_checker.service
