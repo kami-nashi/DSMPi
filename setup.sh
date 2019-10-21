@@ -2,7 +2,7 @@
 
 # prepare basic tools
 apt-get update
-apt-get install git expect wget screen rsync terminator vim librxtx-java setserial xautomation unclutter xscreensaver openssh-server setserial librxtx-java
+apt-get -y install git expect wget screen rsync terminator vim librxtx-java setserial xautomation unclutter xscreensaver openssh-server setserial librxtx-java
 
 # git the DSMPi repo (for script assets)
 mkdir /opt/github
@@ -14,10 +14,10 @@ mkdir /tmp/dsm_rpi
 cd /tmp/dsm_rpi
 
 # get the packages we need
-wget moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
-wget moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
-wget moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so
-wget moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar
+wget --output-file=ecmlink_3_36_73.sh http://moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
+wget --output-file=jdk-8u221-linux-arm32-vfp-hflt.tar.gz http://moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
+wget --output-file=librxtxserial_2_1_7.so http://moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so
+wget --output-file=RXTXcomm.jar http://moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar
 
 # get rid of openjdk because of reasons (ecmlink compatiblity issues)
 apt-get purge openjdk*
@@ -31,6 +31,7 @@ update-alternatives --config java
 
 # install ECMLink
 chmod +x /tmp/dsm_rpi/ecmlink_3_36_73.sh
+chmod +x /opt/github/DSMPi/assets/ecmlink_answers.sh
 /opt/github/DSMPi/assets/ecmlink_answers.sh
 
 # Setup ECMLink/Java to use the ARM version of RXTX
@@ -39,7 +40,7 @@ cd /opt/ECMLink/libs/
 cp /tmp/dsm_rpi/librxtxserial_2_1_7.so .
 cp /tmp/dsm_rpi/RXTXcomm.jar .
 ln -sf /usr/lib/jni/librxtxSerial.so
-chmod +x ../ecmlink
+chmod +x /opt/ECMLink/ecmlink
 
 # get powerline fonts
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
