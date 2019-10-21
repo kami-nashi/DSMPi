@@ -2,7 +2,12 @@
 
 # prepare basic tools
 apt-get update
-apt-get install wget screen rsync terminator vim librxtx-java setserial xautomation unclutter xscreensaver openssh-server setserial librxtx-java
+apt-get install git expect wget screen rsync terminator vim librxtx-java setserial xautomation unclutter xscreensaver openssh-server setserial librxtx-java
+
+# git the DSMPi repo (for script assets)
+mkdir /opt/github
+cd /opt/github
+git clone https://github.com/kami-nashi/DSMPi.git
 
 # create work dirs
 mkdir /tmp/dsm_rpi
@@ -25,8 +30,8 @@ update-alternatives --config javac
 update-alternatives --config java
 
 # install ECMLink
-chmod +x ecmlink_3_36_73.sh
-sh /tmp/dsm_rpi/ecmlink_3_36_73.sh
+chmod +x /tmp/dsm_rpi/ecmlink_3_36_73.sh
+/opt/github/DSMPi/assets/ecmlink_answers.sh
 
 # Setup ECMLink/Java to use the ARM version of RXTX
 # borrowed from http://www.ecmtuning.com/forums/showthread.php?t=78448&highlight=raspberry&page=4
@@ -48,13 +53,10 @@ fc-cache -vf /usr/share/fonts/
 # install raspberry pi stuff for things
 pip3 install Adafruit_DHT
 pip3 install Adafruit_Python_SSD1306
-pip3 install mydaemon
 
 # create and clone additional dev resources
-mkdir /opt/github
 cd /opt/github
 
-git clone https://github.com/kami-nashi/DSMPi.git
 git clone https://github.com/adafruit/Adafruit_SSD1306.git
 git clone https://github.com/adafruit/Adafruit_Python_DHT.git
 
