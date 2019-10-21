@@ -14,10 +14,10 @@ mkdir /tmp/dsm_rpi
 cd /tmp/dsm_rpi
 
 # get the packages we need
-wget --output-file=ecmlink_3_36_73.sh http://moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
-wget --output-file=jdk-8u221-linux-arm32-vfp-hflt.tar.gz http://moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
-wget --output-file=librxtxserial_2_1_7.so http://moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so
-wget --output-file=RXTXcomm.jar http://moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar
+wget --output-document=ecmlink_3_36_73.sh http://moddy.kami-nashi.com/dsm_rpi/sources/ecmlink_3_36_73.sh
+wget --output-document=jdk-8u221-linux-arm32-vfp-hflt.tar.gz http://moddy.kami-nashi.com/dsm_rpi/sources/jdk-8u221-linux-arm32-vfp-hflt.tar.gz
+wget --output-document=librxtxserial_2_1_7.so http://moddy.kami-nashi.com/dsm_rpi/sources/librxtxserial_2_1_7.so
+wget --output-document=RXTXcomm.jar http://moddy.kami-nashi.com/dsm_rpi/sources/RXTXcomm.jar
 
 # get rid of openjdk because of reasons (ecmlink compatiblity issues)
 apt-get purge openjdk*
