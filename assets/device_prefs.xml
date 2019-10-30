@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE map SYSTEM "http://java.sun.com/dtd/preferences.dtd">
+<map MAP_XML_VERSION="1.0">
+  <entry key="byteDelayMillis" value="0"/>
+  <entry key="cmdTimeoutMillis" value="500"/>
+  <entry key="configuredDeviceListId" value="4"/>
+  <entry key="doAutoConnect" value="false"/>
+  <entry key="doPoll" value="true"/>
+  <entry key="doPortScan" value="false"/>
+  <entry key="initialPortId" value="/dev/ttyUSB0"/>
+  <entry key="pollsPerMinute" value="25"/>
+  <entry key="rememberGoodPort" value="true"/>
+</map>

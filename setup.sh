@@ -42,6 +42,15 @@ cp /tmp/dsm_rpi/RXTXcomm.jar .
 ln -sf /usr/lib/jni/librxtxSerial.so
 chmod +x /opt/ECMLink/ecmlink
 
+# sparkles secret sauce 
+## predictible ttyUSB naming of the link cable
+sh /opt/github/DSMPi/assets/udev_linkcable_rules.sh
+## predefined pref's
+mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/
+mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/
+cp /opt/github/DSMPi/assets/serial_port_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/prefs.xml git/DSMPi/assets/prefs.xml
+cp /opt/github/DSMPi/assets/device_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/prefs.xml
+
 # get powerline fonts
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf

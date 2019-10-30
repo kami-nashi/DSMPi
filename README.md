@@ -3,7 +3,7 @@ Sparklerific set of scripts and such to run ECMLink on a Raspberry Pi, complete 
 
 ## To Install
 
-For best results, drop to root.  Sudo should also be just dandy.
+For best results, Sudo should also be just dandy.  Avoid using as root (or you may need to manually re-do some of the commands)
 
 In Linux, run the following commands:
 ```bash
