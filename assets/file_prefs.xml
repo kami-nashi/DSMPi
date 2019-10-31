@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE map SYSTEM "http://java.sun.com/dtd/preferences.dtd">
+<map MAP_XML_VERSION="1.0">
+  <entry key="datalogBaseDirectory" value="/opt/ECMLink/datalogs"/>
+  <entry key="datalogCreateDirectory" value="true"/>
+  <entry key="datalogCreateDirectorySpec" value="'logs.'yyyy.MM"/>
+  <entry key="datalogSaveAsFileSpec" value="'log.'yyyy.MM.dd"/>
+  <entry key="deviceSettingsSaveAsFileSpec" value="'settings.'yyyy.MM.dd"/>
+  <entry key="directAccessSaveAsFileSpec" value="'directaccess.'yyyy.MM.dd"/>
+  <entry key="lastAccessDirectory" value="/home/pi/ecmlink"/>
+  <entry key="rememberLastAutoOpen" value="true"/>
+  <entry key="userDeviceSettingsDirectory" value="/home/pi/ecmlink/settings"/>
+  <entry key="userFirmwareDirectory" value="/home/pi/ecmlink/firmware"/>
+</map>

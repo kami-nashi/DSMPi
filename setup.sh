@@ -43,13 +43,25 @@ ln -sf /usr/lib/jni/librxtxSerial.so
 chmod +x /opt/ECMLink/ecmlink
 
 # sparkles secret sauce 
-## predictible ttyUSB naming of the link cable
+## predictible ttyUSB naming of the link cable (based on serial number of cable -> always ttyUSB98, because my dsm is a 98)
 sh /opt/github/DSMPi/assets/udev_linkcable_rules.sh
 ## predefined pref's
 mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/
 mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/
+mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/
+
+cp /opt/github/DSMPi/assets/file_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/prefs.xml
 cp /opt/github/DSMPi/assets/serial_port_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/prefs.xml git/DSMPi/assets/prefs.xml
 cp /opt/github/DSMPi/assets/device_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/prefs.xml
+
+## permission problems do not have my permission to be a problem.
+chown pi:pi -R /home/pi/.java
+chmod 755 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/
+chmod 755 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/
+chmod 755 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/
+chmod 644 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/prefs.xml
+chmod 644 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/prefs.xml git/DSMPi/assets/prefs.xml
+chmod 644 /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/prefs.xml
 
 # get powerline fonts
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf

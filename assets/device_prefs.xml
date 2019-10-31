@@ -7,7 +7,7 @@
   <entry key="doAutoConnect" value="false"/>
   <entry key="doPoll" value="true"/>
   <entry key="doPortScan" value="false"/>
-  <entry key="initialPortId" value="/dev/ttyUSB0"/>
+  <entry key="initialPortId" value="/dev/ttyUSB98"/>
   <entry key="pollsPerMinute" value="25"/>
   <entry key="rememberGoodPort" value="true"/>
 </map>
