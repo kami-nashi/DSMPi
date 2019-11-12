@@ -51,7 +51,7 @@ mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/
 mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/
 
 cp /opt/github/DSMPi/assets/file_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/filenames/prefs.xml
-cp /opt/github/DSMPi/assets/serial_port_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/prefs.xml git/DSMPi/assets/prefs.xml
+cp /opt/github/DSMPi/assets/serial_port_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/prefs.xml
 cp /opt/github/DSMPi/assets/device_prefs.xml /home/pi/.java/.userPrefs/ecmtuning/ecmlink/device/ECMLinkDevice/prefs.xml
 
 ## permission problems do not have my permission to be a problem.
