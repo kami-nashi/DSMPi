@@ -44,6 +44,7 @@ chmod +x /opt/ECMLink/ecmlink
 
 # sparkles secret sauce 
 ## predictible ttyUSB naming of the link cable (based on serial number of cable -> always ttyUSB98, because my dsm is a 98)
+## Dropped support for this on 2/24/2021 because it didnt work as expected in CentOS 7.  Its ust ttyUSB0 now
 sh /opt/github/DSMPi/assets/udev_linkcable_rules.sh
 ## predefined pref's
 mkdir -p /home/pi/.java/.userPrefs/ecmtuning/ecmlink/serialport/

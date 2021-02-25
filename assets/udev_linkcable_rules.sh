@@ -3,7 +3,7 @@
 linkserial=`udevadm info -a -n /dev/ttyUSB0 | grep '{manufacturer}' | head -n1 | cut -d '"' -f2`
 
 cat <<EOF > /etc/udev/rules.d/99-usb-serial.rules
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="$linkserial", SYMLINK+="ttyUSB98", OWNER="pi", GROUP="dialout", RUN+="/usr/bin/setserial /dev/ttyUSB98 baud_base 3000000 divisor 192 spd_cust"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="$linkserial", SYMLINK+="ttyUSB98", OWNER="pi", GROUP="dialout", RUN+="assets/setECML_baud.sh"
 EOF
 
 ## Lets tell Linux to set the baud rate of ttyUSB98 every time the cable is plugged in
@@ -17,4 +17,5 @@ chmod 644 /etc/udev/rules.d/99-usb-serial.rules
 chown root:root /etc/udev/rules.d/99-usb-serial.rules
 
 udevadm control –reload-rules
-udevadm trigger /dev/ecmlink
+#udevadm trigger /dev/ecmlink
+udevadm trigger /dev/ttyUSB0
