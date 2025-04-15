@@ -1,8 +1,8 @@
-import requests
 from pathlib import Path
+import requests
+import platform
 import bs4
 import re
-import platform
 
 
 def find_ecmlink(arch):
@@ -42,8 +42,6 @@ def download_ecmlink(arch, filename=None):
     Downloads the file from the given URL into ~/software.
     Creates the folder if it doesn't exist.
     '''
-    import requests
-    from pathlib import Path
 
     # Get the user's home directory and ensure ~/software exists
     home_dir = Path.home()
