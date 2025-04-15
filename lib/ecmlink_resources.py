@@ -1,7 +1,7 @@
-from pathlib import Path
 import requests
 import platform
 import bs4
+import os
 import re
 
 
@@ -42,11 +42,13 @@ def download_ecmlink(arch, filename=None):
     Downloads the file from the given URL into ~/software.
     Creates the folder if it doesn't exist.
     '''
+    # Get the user's home directory
+    home_dir = os.path.expanduser('~')
+    software_dir = os.path.join(home_dir, 'software')
 
-    # Get the user's home directory and ensure ~/software exists
-    home_dir = Path.home()
-    software_dir = home_dir / 'software'
-    software_dir.mkdir(parents=True, exist_ok=True)
+    # Create the directory if it doesn't exist
+    if not os.path.exists(software_dir):
+        os.makedirs(software_dir)
 
     url = find_ecmlink(arch)
 
@@ -54,7 +56,7 @@ def download_ecmlink(arch, filename=None):
     if not filename:
         filename = url.split('/')[-1]
 
-    destination_path = software_dir / filename
+    destination_path = os.path.join(software_dir, filename)
 
     try:
         with requests.get(url, stream=True) as response:
@@ -72,6 +74,8 @@ def download_ecmlink(arch, filename=None):
 
 def gather():
     arch = platform.machine()
+    
+    # ECMLink doesnt include the 86 part in the name so we'll reset that
     if 'x86_64' in arch:
         arch = 'x64'
     
